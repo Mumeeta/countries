@@ -1,31 +1,72 @@
 import React, { Component } from "react";
-
 import axios from "axios";
 
 function getCountry(capital) {
-  return axios.get(`https://restcountries.com/v3.1/capital/${capital}`);
+  return axios.get(`https://restcountries.com/v2/capital/${capital}`);
 }
 
 function getWeather(capital) {
   return axios.get(
-    `api.openweathermap.org/data/2.5/weather?q=${capital}&appid=${process.env.REACT_APP_OPENWEATHER_KEY}`
+    `https://api.openweathermap.org/data/2.5/weather?q=${capital}&units=metric&appid=${process.env.REACT_APP_OPENWEATHER_KEY}`
   );
 }
 
 class CountrySingle extends Component {
   state = {
-    country: [],
-    weather: [],
+    country: {},
+    weather: {},
+    isLoading: true,
   };
+
   componentDidMount() {
-    Promise.all([getCountry(), getWeather()]).then(function (results) {
-      const acct = results[0];
-      const perm = results[1];
+    Promise.all([
+      getCountry(this.props.params.name),
+      getWeather(this.props.params.name),
+    ]).then((res) => {
+      this.setState({
+        country: res[0].data[0],
+        weather: res[1].data,
+        isLoading: false,
+      });
+      console.log("response", res);
+      console.log("state country", this.state.country);
+      console.log("state weather", this.state.weather);
     });
-    console.log(this.props.params);
   }
+
   render() {
-    return <div>Right now its degree in {this.props.params.name}</div>;
+    if (this.state.isLoading) {
+      return (
+        <div>
+          <div className="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      );
+    }
+
+    if (!this.state.isLoading) {
+      return (
+        <div className="info">
+          <p>
+            Right now it is {this.state.weather.main.temp}
+            <img
+              className="weather"
+              src={`http://openweathermap.org/img/wn/${this.state.weather.weather[0].icon}@2x.png`}
+              alt={this.state.weather.weather[0].description}
+            />
+            degrees in {this.state.country.capital}. Population is:{" "}
+            {this.state.country.population} people. Languages used:
+            {this.state.country.languages.map((lang, i) => (
+              <span key={i}> {lang.name} </span>
+            ))}
+          </p>
+        </div>
+      );
+    }
   }
 }
 

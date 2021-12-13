@@ -1,7 +1,11 @@
 * {
   box-sizing: border-box;
 }
-
+/* ./src/index.css {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;}
+*/
 body {
   margin: 2rem;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -11,7 +15,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-image: linear-gradient(90deg, #426377, #ceff5c);
 }
-
+.imag {
+  height: 100px !important;
+  width: 100px !important;
+  position: absolute !important;
+  top: auto;
+  right: auto;
+  box-shadow: none;
+}
 img {
   height: 100px;
   width: 100px;
@@ -78,4 +89,77 @@ img {
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 1rem;
   }
+}
+nav {
+  text-align: center;
+}
+
+footer {
+  margin-top: 200px;
+  text-align: center;
+}
+
+nav ul li {
+  display: inline-block;
+  list-style: bold;
+  padding: 9px;
+  border-radius: 5px 5px;
+  color: rgb(40, 40, 40);
+  text-decoration: none;
+  font-size: 63px;
+}
+nav ul li :hover {
+  background-color: none;
+}
+
+.wrapper {
+  /* display: inline-grid;
+  grid-column-gap: 50px; */
+  /* display: grid;
+  grid-template-columns: repeat(3, 1fr); */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+input {
+  margin: 50px;
+  padding: 12px;
+  border-radius: 8px;
+  border: solid 1px;
+}
+.info-txt {
+  text-align: center !important;
+}
+.lds-ring {
+  border: 10px solid #0f0f0f;
+  border-radius: 50%;
+  border-top: 10px solid #000000;
+}
+.home {
+  font-size: 18px;
+  line-height: 1.7;
+  padding: 200px;
+}
+a {
+  text-decoration: none;
+}
+.cardContent {
+  font-size: 18px;
+  text-decoration: none !important;
+  color: black;
+}
+.weather {
+  height: 15rem !important;
+  width: 15rem !important;
+  position: absolute !important;
+  top: 8rem !important;
+  right: 64rem !important;
+  box-shadow: none !important;
+}
+p {
+  font-size: 22px;
+}
+.info {
+  font-size: 22px;
+  text-align: center;
 }

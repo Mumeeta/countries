@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./loader.css";
 import CountriCard from "./CountriCard";
+import { Outlet } from "react-router-dom";
 
 class CountriesList extends Component {
   state = {
@@ -32,7 +33,7 @@ class CountriesList extends Component {
     if (this.state.isLoading) {
       return (
         <div>
-          <div class="lds-ring">
+          <div className="lds-ring">
             <div></div>
             <div></div>
             <div></div>
@@ -44,21 +45,23 @@ class CountriesList extends Component {
 
     if (!this.state.isLoading) {
       return (
-        <div className="countries">
+        <div>
           <input
             type="text"
             name="search"
             onChange={this.searchHandler.bind(this)}
           />
-          {this.state.data
-            .filter((c) => {
-              return c.name
-                .toLowerCase()
-                .includes(this.state.searchInput.toLowerCase());
-            })
-            .map((country) => (
-              <CountriCard {...country} key={country.name} />
-            ))}
+          <div className="countries">
+            {this.state.data
+              .filter((c) => {
+                return c.name
+                  .toLowerCase()
+                  .includes(this.state.searchInput.toLowerCase());
+              })
+              .map((country) => (
+                <CountriCard {...country} key={country.name} />
+              ))}
+          </div>
         </div>
       );
     }
